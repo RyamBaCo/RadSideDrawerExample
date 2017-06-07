@@ -1,0 +1,47 @@
+.list-group {
+    background-color: #303030;
+}
+
+.hr-light {
+    background-color: rgba(255, 255, 255, .1);
+}
+
+.playlist-item-icon {
+    font-size: 50;
+}
+
+.playlist-item-selected {
+    border-color: rgba(255, 255, 255, .9);
+    border-width: 1;
+    border-radius: 5;
+}
+
+.sidedrawer-content-playlist {
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 5;
+}
+
+.sidedrawer-list-item-playlist {
+    color: black;
+}
+
+.sidedrawer-list-item-text {
+  border-width: 0;
+}
+
+.sidedrawer-center-playlist {
+    background-color: rgba(0, 0, 0, 0);
+    margin: 0 10 0 10;
+}
+
+.btn-outline {
+    border-radius: 5;
+    border-color: white;
+    color: white;
+    background-color: rgb(143,196,60);
+}
+
+.slider {
+    color: rgb(143,196,60);
+    background-color: rgb(143,196,60);
+}

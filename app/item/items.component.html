@@ -1,0 +1,57 @@
+<ActionBar title="My App" class="action-bar">
+</ActionBar>
+<RadSideDrawer drawerLocation="Bottom" drawerContentSize="150">
+    <StackLayout tkDrawerContent class="sidedrawer-center sidedrawer-center-playlist">
+        <StackLayout class="sidedrawer-content sidedrawer-content-playlist">
+            <StackLayout class="sidedrawer-list-item" orientation="vertical">
+                <Label class="sidedrawer-list-item-icon sidedrawer-list-item-playlist font-awesome" text="&#xf03e;"></Label>
+                <Label class="sidedrawer-list-item-text sidedrawer-list-item-playlist" text="Mediathek"></Label>
+            </StackLayout>
+            <StackLayout class="sidedrawer-list-item" orientation="vertical">
+                <Label class="sidedrawer-list-item-icon sidedrawer-list-item-playlist font-awesome" text="&#xf030;"></Label>
+                <Label class="sidedrawer-list-item-text sidedrawer-list-item-playlist" text="Picture"></Label>
+            </StackLayout>
+            <StackLayout class="sidedrawer-list-item" [visibility]="selectedItemIndex >= 0 ? 'visible' : 'collapse'" orientation="vertical">
+                <Label class="sidedrawer-list-item-icon sidedrawer-list-item-playlist font-awesome" text="&#xf1f8;"></Label>
+                <Label class="sidedrawer-list-item-text sidedrawer-list-item-playlist" text="Delete"></Label>
+            </StackLayout>
+            <StackLayout class="sidedrawer-list-item" [visibility]="selectedItemIndex < 0 ? 'visible' : 'collapse'" orientation="vertical">
+                <Label class="sidedrawer-list-item-icon sidedrawer-list-item-playlist font-awesome" text="&#xf021;"></Label>
+                <Label class="sidedrawer-list-item-text sidedrawer-list-item-playlist" text="Refresh"></Label>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+    <GridLayout tkMainContent class="page">
+        <RadListView id="playlistItems" [items]="playlistItemList" class="list-group" pullToRefresh="true" (pullToRefreshInitiated)="reloadPlaylistItems($event)"
+            itemReorder="true" (itemReorderStarted)="reorderStarted($event)" (itemReordered)="reorderPlaylistItems($event)" itemDeleteAnimation="Fade"
+            multipleSelection="false" selectionBehavior="Press">
+            <ng-template tkListItemTemplate let-item="item">
+                <StackLayout orientation="vertical">
+                    <GridLayout columns="auto, *, auto" [class]="item.selected ? 'list-group-item playlist-item-selected' : 'list-group-item'">
+                        <Image col="0" [src]="item.thumbnail_url" [visibility]="item.content_type !== 'playlist' && item.content_type !== 'external_media' ? 'visible' : 'collapse'"
+                            height="60" width="106" class="img-rounded"></Image>
+                        <StackLayout col="0" height="60" width="106" horizontalAlignment="center" verticalAlignment="center" [visibility]="item.content_type === 'playlist' ? 'visible' : 'collapse'">
+                            <Label class="playlist-item-icon text-center font-awesome" text="&#xf0ca;"></Label>
+                        </StackLayout>}
+                        <StackLayout col="0" height="60" width="106" horizontalAlignment="center" verticalAlignment="center" [visibility]="item.content_type === 'external_media' ? 'visible' : 'collapse'">
+                            <Label class="playlist-item-icon text-center font-awesome" text="&#xf08e;"></Label>
+                        </StackLayout>
+                        <StackLayout col="0" height="60" width="106" horizontalAlignment="center" verticalAlignment="center" [visibility]="item.content_type === 'channel' && !item.thumbnail_url ? 'visible' : 'collapse'">
+                            <Label class="playlist-item-icon text-center font-awesome" text="&#xf09e;"></Label>
+                        </StackLayout>
+                        <StackLayout col="1" orientation="vertical" class="m-10">
+                            <Label [text]="item.name"></Label>
+                            <Label class="footnote font-awesome" [text]="item.infoText"></Label>
+                        </StackLayout>
+                        <StackLayout col="2" horizontalAlignment="center" verticalAlignment="center" (tap)="itemSelected($event)">
+                            <Image src="res://icon_playlistitem_options" width="30" height="60"></Image>
+                        </StackLayout>
+                    </GridLayout>
+                    <StackLayout class="hr-light"></StackLayout>
+                </StackLayout>
+            </ng-template>
+        </RadListView>
+        <ActivityIndicator [busy]="playlistItemLoading" [visibility]="playlistLoading ? 'visible' : 'collapse'" horizontalAlignment="center"
+            verticalAlignment="center"></ActivityIndicator>
+    </GridLayout>
+</RadSideDrawer>
