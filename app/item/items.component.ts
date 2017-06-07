@@ -24,6 +24,7 @@ export class ItemsComponent implements OnInit {
 		this.playlistItemLoading = true;
         this.playlistItemList = new ObservableArray<PlaylistItem>();
         this.playlistItemList.push(new PlaylistItem("test", "test", "1:00", 1, "image", "http://lorempixel.com/400/200/"));
+        this.playlistItemList.push(new PlaylistItem("test", "test", "1:00", 2, "image", "http://lorempixel.com/400/200/"));
 	}
 
 	toggleSidedrawer(args) {
